@@ -1,0 +1,215 @@
+Iteration 1: Project Setup & Core Infrastructure
+
+Goals:
+
+Establish the file structure, define constants and utilities, and prepare for development.
+
+User Stories:
+
+As a developer, I want to initialize the project structure so that the codebase is organized and scalable.
+
+As a developer, I want to define chess constants (piece types, colors, etc.) to standardize representations.
+
+As a developer, I want utility functions to convert between bitboard, square indexes, and algebraic notation.
+
+Tasks:
+
+Create folders: engine/, gui/, core/, assets/, data/, tests/
+
+Initialize requirements.txt with dependencies: PyQt5, numpy
+
+Create core/constants.py: piece types, colors, board masks
+
+Create core/utils.py: bitboard operations, coordinate conversions
+
+Iteration 2: Bitboard System and Game State
+
+Goals:
+
+Implement the core board representation and game state tracking.
+
+User Stories:
+
+As a developer, I want to use bitboards to represent the position of each piece for efficiency.
+
+As a developer, I want to maintain game state, including castling rights, en passant, and side to move.
+
+Tasks:
+
+Implement engine/bitboard.py:
+
+Dictionary of bitboards by piece type
+
+Occupancy masks (white, black, all)
+
+Store and update:
+
+Castling rights
+
+En passant target
+
+Fullmove and halfmove counters
+
+Iteration 3: Move Generation System
+
+Goals:
+
+Develop pseudo-legal move generation and filtering for legal moves.
+
+User Stories:
+
+As a developer, I want to generate all possible moves for each piece type using bitwise operations.
+
+As a developer, I want to filter out illegal moves to maintain rules like king safety.
+
+Tasks:
+
+Create engine/movegen.py
+
+Generate pseudo-legal moves for each piece
+
+Handle pawn moves, promotions, castling, and en passant
+
+Implement king-in-check filtering logic
+
+Iteration 4: Evaluation and Search Logic
+
+Goals:
+
+Implement evaluation function and alpha-beta pruning for decision-making.
+
+User Stories:
+
+As a developer, I want to evaluate board positions based on material and position.
+
+As a developer, I want to use alpha-beta pruning to efficiently search for best moves.
+
+Tasks:
+
+Create engine/evaluator.py with basic evaluation heuristics:
+
+Material count
+
+Piece-square tables
+
+Implement engine/search.py:
+
+Minimax with alpha-beta pruning
+
+Move ordering: captures, checks, killers
+
+Iteration 5: Zobrist Hashing and Transposition Table
+
+Goals:
+
+Optimize search with transposition table using Zobrist hashing.
+
+User Stories:
+
+As a developer, I want to uniquely identify board states using Zobrist hashing.
+
+As a developer, I want to store previously evaluated positions to avoid redundant search.
+
+Tasks:
+
+Create engine/zobrist.py
+
+Random keys for pieces, castling, en passant, side to move
+
+compute_hash() and update_hash()
+
+Create engine/transposition.py
+
+Store hash, depth, score, best move, bound type
+
+Integrate transposition table into search.py
+
+Iteration 6: Opening Book Integration
+
+Goals:
+
+Add support for an opening book to guide early moves.
+
+User Stories:
+
+As a developer, I want to load documented openings with win percentages.
+
+As a developer, I want to use openings for the first few moves to mimic human play.
+
+Tasks:
+
+Store data in data/openings.json
+
+Zobrist hash key to list of moves with win rate
+
+Create engine/opening_book.py
+
+Load and access book moves
+
+Weighted move selection
+
+Integrate into search.py to check opening before starting search
+
+Iteration 7: GUI Development
+
+Goals:
+
+Create an interactive chessboard GUI using PyQt5.
+
+User Stories:
+
+As a user, I want a visual chessboard to play games.
+
+As a user, I want to click and move pieces via drag-and-drop.
+
+As a user, I want the engine to play moves after I move.
+
+Tasks:
+
+Create gui/board_widget.py
+
+Draw board, render pieces
+
+Handle user input
+
+Create main.py
+
+Launch PyQt5 app and game window
+
+Link GUI to engine:
+
+Update bitboard on player move
+
+Run search and show engine move
+
+Iteration 8: Testing and Debugging
+
+Goals:
+
+Ensure correctness and reliability through testing and profiling.
+
+User Stories:
+
+As a developer, I want to run unit tests to ensure components work correctly.
+
+As a developer, I want to manually test gameplay to confirm special moves and performance.
+
+Tasks:
+
+Write unit tests in tests/
+
+Bitboard updates
+
+Move generation
+
+Zobrist hashing
+
+Opening book lookup
+
+Manual testing:
+
+All special moves
+
+Check GUI responsiveness
+
+Profile search performance
