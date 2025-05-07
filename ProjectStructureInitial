@@ -1,0 +1,23 @@
+chess_engine/
+├── main.py                       # Entry point: starts the PyQt GUI
+├── gui/
+│   └── board_widget.py           # Renders chessboard UI, handles user interaction
+├── engine/
+│   ├── bitboard.py               # Manages board representation using 64-bit integers
+│   ├── movegen.py                # Legal move generation (bitwise operations)
+│   ├── evaluator.py              # Evaluates board state for search
+│   ├── search.py                 # Alpha-beta pruning with minimax
+│   ├── zobrist.py                # Zobrist hash initialization and update functions
+│   └── transposition.py          # Stores and looks up positions by hash (TT cache)
+├── core/
+│   ├── constants.py              # Piece enums, masks, board layout, etc.
+│   └── utils.py                  # Coordinate conversions, square indexing, bit hacks
+├── assets/
+│   └── pieces/                   # PNG or SVG assets for chess pieces
+├── tests/
+│   ├── test_bitboard.py
+│   ├── test_movegen.py
+│   ├── test_search.py
+│   └── test_zobrist.py
+├── requirements.txt              # External libraries (e.g., PyQt5, NumPy)
+└── README.md
