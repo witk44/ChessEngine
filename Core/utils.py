@@ -1,5 +1,5 @@
 #chess engine utils
-from core.constants import SQUARES, INDEX_TO_SQUARE
+from Core.constants import SQUARES, INDEX_TO_SQUARE
 
 def square_name_to_index(name: str) -> int:
     """Convert algebraic notation (e.g., 'e4') to square index (0-63)."""

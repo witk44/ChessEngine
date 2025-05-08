@@ -1,10 +1,10 @@
 # Constants for a chess game
-PAWN = 0
-KNIGHT = 1
-BISHOP = 2
-ROOK = 3
-QUEEN = 4
-KING = 5
+PAWN = 1
+KNIGHT = 2
+BISHOP = 3
+ROOK = 4
+QUEEN = 5
+KING = 6
 
 PIECE_TYPES = {
     'P': PAWN,
@@ -25,8 +25,8 @@ PIECE_SYMBOLS = {
 }
 
 
-WHITE = 0
-BLACK = 1
+WHITE = 1
+BLACK = -1
 
 COLOR_NAMES = {
     WHITE: 'white',
