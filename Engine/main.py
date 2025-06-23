@@ -1,27 +1,36 @@
 import chess
 import engine
-
-engine_color = chess.BLACK
+import time
+engine_color = chess.WHITE
 
 def main():
-    # Initialize the chess board
     board = chess.Board()
+    
+    while True:
+        player_color_input = input("Play as white or black? (w/b): ").strip().lower()
+        if player_color_input in ["w", "b"]:
+            break
+        print("Invalid input. Type 'w' for white or 'b' for black.")
 
+    engine_color = chess.BLACK if player_color_input == "w" else chess.WHITE
     while not board.is_game_over():
         if board.turn == engine_color:
-            pass
+            start = time.time()
+            move = engine.get_best_move(board, depth=9)
+            print(f"Engine move: {move} (calculated in {time.time() - start:.2f}s)")
+
         else:
             player_move = input("enter your move: ")
             try:
                 move = chess.Move.from_uci(player_move)
-                if move in board.legal_moves:
-                    board.push(move)
-                    print("move made:", move)
-                else:
-                    print("Illegal move, try again.")
+                
             except ValueError:
                 print("Invalid input, please enter a valid UCI move.")
-
+        if move in board.legal_moves:
+            board.push(move)
+            print("move made:", move)
+        else:
+            print("Illegal move, try again.")
 
 if __name__ == "__main__":
     main()
