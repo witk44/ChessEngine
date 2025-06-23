@@ -16,7 +16,7 @@ def main():
     while not board.is_game_over():
         if board.turn == engine_color:
             start = time.time()
-            move = engine.get_best_move(board, depth=9)
+            move = engine.get_best_move(board, 4)
             print(f"Engine move: {move} (calculated in {time.time() - start:.2f}s)")
 
         else:

@@ -17,7 +17,7 @@ def minimax(board: chess.Board,depth,alpha,beta,maximizing):
             alpha = max(alpha,eval)
             if beta <= alpha:
                 break
-            return max_eval,best_move
+        return max_eval,best_move
     else:
         min_eval = float('inf')
         for move in board.legal_moves:
@@ -30,4 +30,4 @@ def minimax(board: chess.Board,depth,alpha,beta,maximizing):
             beta = min(beta,eval)
             if beta <= alpha:
                 break
-            return min_eval,best_move
+        return min_eval,best_move
