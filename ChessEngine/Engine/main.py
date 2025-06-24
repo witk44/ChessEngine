@@ -29,6 +29,7 @@ def main():
         if move in board.legal_moves:
             board.push(move)
             print("move made:", move)
+            print(board)
         else:
             print("Illegal move, try again.")
 

@@ -1,6 +1,6 @@
-from main import engine_color
+
 import chess
-from pst import *
+from ChessEngine.Engine.pst import *
 piece_values = {
     chess.PAWN: 100,
     chess.KNIGHT: 320,
@@ -9,22 +9,21 @@ piece_values = {
     chess.QUEEN: 900,
     chess.KING: 20000
 }
-PST = {
-    chess.PAWN: pawn_pst,
-    chess.KNIGHT: knight_pst,
-    chess.BISHOP: bishop_pst,
-    chess.ROOK: rook_pst,
-    chess.QUEEN: queen_pst,
-    chess.KING: king_pst
-}
 
 
-
+game_phase = "opening"
 
 
  
 
 def evaluate_board(board):
+    pieces_left = len(board.pieces(piece_type, chess.BLACK))+len(board.pieces(piece_type, chess.WHITE))
+    if pieces_left < 28:
+        game_phase = "midgame"
+    elif pieces_left < 6:
+        game_phase = "endgame"
+    PST = PST_DICT
+    once = 1
     if board.is_checkmate():
         return -99999999999 if board.turn else 99999999999
     elif board.is_stalemate() or board.is_insufficient_material():
@@ -35,11 +34,12 @@ def evaluate_board(board):
         for square in board.pieces(piece_type, chess.WHITE):
             score += piece_values[piece_type]
             if piece_type in PST:
-                score += PST[piece_type][square]
+                score += PST[piece_type][game_phase][square]*10
 
         for square in board.pieces(piece_type, chess.BLACK):
             score -= piece_values[piece_type]
             if piece_type in PST:
                 mirrored_square = chess.square_mirror(square)
-                score -= PST[piece_type][mirrored_square]
+                
+                score -= PST[piece_type][game_phase][mirrored_square]*10
     return score

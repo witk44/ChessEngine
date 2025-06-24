@@ -1,5 +1,5 @@
 import chess
-import evaluation
+from ChessEngine.Engine import evaluation
 def minimax(board: chess.Board,depth,alpha,beta,maximizing):
     if depth == 0 or board.is_game_over():
         return evaluation.evaluate_board(board), None
