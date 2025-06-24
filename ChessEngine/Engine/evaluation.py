@@ -18,7 +18,7 @@ game_phase = "opening"
 
 def evaluate_board(board):
     pieces_left = len(board.pieces(piece_type, chess.BLACK))+len(board.pieces(piece_type, chess.WHITE))
-    if pieces_left < 28:
+    if pieces_left < 29:
         game_phase = "midgame"
     elif pieces_left < 6:
         game_phase = "endgame"

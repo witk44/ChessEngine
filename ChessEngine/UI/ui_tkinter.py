@@ -3,7 +3,7 @@ import chess
 from ChessEngine.Engine import engine
 import time
 
-TILE_SIZE = 128
+TILE_SIZE = 80
 WHITE_COLOR = "#EEEED2"
 BLACK_COLOR = "#769656"
 PIECE_UNICODE = {
@@ -19,6 +19,7 @@ class ChessGUI:
         self.canvas = tk.Canvas(root, width=8*TILE_SIZE, height=8*TILE_SIZE)
         self.canvas.pack()
         self.selected_square = None
+        self.flip = engine_color == chess.WHITE
         self.canvas.bind("<Button-1>", self.click)
         self.draw_board()
 
@@ -29,12 +30,14 @@ class ChessGUI:
         self.canvas.delete("all")
         for rank in range(8):
             for file in range(8):
-                square_index = chess.square(file, 7 - rank)
+                display_rank = rank if not self.flip else 7 - rank
+                display_file = file if not self.flip else 7 - file
+                square_index = chess.square(display_file, 7 - display_rank)
                 x1 = file * TILE_SIZE
                 y1 = rank * TILE_SIZE
                 x2 = x1 + TILE_SIZE
                 y2 = y1 + TILE_SIZE
-                color = WHITE_COLOR if (rank + file) % 2 == 0 else BLACK_COLOR
+                color = WHITE_COLOR if (display_rank + display_file) % 2 == 0 else BLACK_COLOR
                 self.canvas.create_rectangle(x1, y1, x2, y2, fill=color)
 
                 piece = self.board.piece_at(square_index)
@@ -46,8 +49,11 @@ class ChessGUI:
     def click(self, event):
         if self.board.turn != self.engine_color:
             file = event.x // TILE_SIZE
-            rank = 7 - (event.y // TILE_SIZE)
-            square = chess.square(file, rank)
+            rank = (event.y // TILE_SIZE)
+            if self.flip:
+                file = 7-file
+                rank = 7-rank
+            square = chess.square(file, 7 - rank)
 
             if self.selected_square is None:
                 if self.board.piece_at(square) and self.board.piece_at(square).color == self.board.turn:
