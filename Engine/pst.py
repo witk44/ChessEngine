@@ -1,7 +1,7 @@
 # pst.py — Full PSTs for opening, midgame, and endgame
-
+import chess
 PST_DICT = {
-    "pawn": {
+    chess.PAWN: {
         "opening": [
              0,  0,  0,   0,   0,  0,  0,  0,
             50, 50, 50,  60,  60, 50, 50, 50,
@@ -34,7 +34,7 @@ PST_DICT = {
         ]
     },
 
-    "knight": {
+    chess.KNIGHT: {
         "opening": [
             -50, -40, -30, -30, -30, -30, -40, -50,
             -40, -20,   0,   5,   5,   0, -20, -40,
@@ -67,7 +67,7 @@ PST_DICT = {
         ]
     },
 
-    "bishop": {
+    chess.BISHOP: {
         "opening": [
             -20, -10, -10, -10, -10, -10, -10, -20,
             -10,   5,   0,   0,   0,   0,   5, -10,
@@ -100,7 +100,7 @@ PST_DICT = {
         ]
     },
 
-    "rook": {
+    chess.ROOK: {
         "opening": [
              0,   0,   5,  10,  10,   5,   0,   0,
             -5,   0,   0,   0,   0,   0,   0,  -5,
@@ -133,7 +133,7 @@ PST_DICT = {
         ]
     },
 
-    "queen": {
+    chess.QUEEN: {
         "opening": [
             -20, -10, -10,  -5,  -5, -10, -10, -20,
             -10,   0,   0,   0,   0,   0,   0, -10,
