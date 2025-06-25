@@ -8,9 +8,9 @@ import time
 from ChessEngine.Engine.engine import get_best_move
 import sys
 
-depth = 6
-# TOKEN = os.getenv("LICHESS_TOKEN")
-TOKEN = "lip_qBfqsEXWnrXE5QpeuMri"
+depth = 4
+TOKEN = os.getenv("LICHESS_TOKEN")
+# TOKEN = "lip_qBfqsEXWnrXE5QpeuMri"
 HEADERS = {
     "Authorization": f"Bearer {TOKEN}"
 }

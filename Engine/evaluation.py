@@ -38,30 +38,33 @@ def evaluate_board(board):
     elif board.is_stalemate() or board.is_insufficient_material():
         return 0
     
-    score = 0
+    material_score = 0
+    positional_score = 0
     center = [chess.D4, chess.E4, chess.D5, chess.E5]
     dev_squares = [chess.C3, chess.F3, chess.C6, chess.F6]
 
     if board.is_castling(last_move(board,chess.BLACK)):
-                score -= 250
+                positional_score -= 250
     elif board.is_castling(last_move(board,chess.WHITE)):
-                score += 250
+                positional_score += 250
     for piece_type in piece_values:
         for square in board.pieces(piece_type, chess.WHITE):
-            score += piece_values[piece_type]
-            score += 100 if square in center else 0
-            score += 50 if square in dev_squares else 0
+            material_score += piece_values[piece_type]
+            positional_score += 100 if square in center else 0
+            positional_score += 50 if square in dev_squares else 0
             if piece_type in PST:
                 
-                score += PST[piece_type][phase][square]*5
+                positional_score += PST[piece_type][phase][square]*5
 
         for square in board.pieces(piece_type, chess.BLACK):
-            score -= piece_values[piece_type]
+            material_score -= piece_values[piece_type]
             
             mirrored_square = chess.square_mirror(square)
-            score -= 100 if mirrored_square in [chess.D4, chess.E4, chess.D5, chess.E5] else 0
-            score -= 50 if mirrored_square in [chess.C3, chess.F3, chess.C6, chess.F6] else 0
+            positional_score -= 100 if mirrored_square in [chess.D4, chess.E4, chess.D5, chess.E5] else 0
+            positional_score -= 50 if mirrored_square in [chess.C3, chess.F3, chess.C6, chess.F6] else 0
             if piece_type in PST:
                 
-                score -= PST[piece_type][phase][mirrored_square]*5
-    return score
+                positional_score -= PST[piece_type][phase][mirrored_square]*5
+    
+    total_score = material_score + .1 * positional_score
+    return total_score if board.turn == chess.WHITE else -total_score
